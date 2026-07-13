@@ -102,6 +102,7 @@ class Giocatore
         {
             Console.WriteLine("\nC'è un muro in quella direzione. (Premi un tasto)");
             Console.ReadKey(true);
+            return;
         }
         else
         {
