@@ -83,7 +83,15 @@ class Giocatore
             case "D": c++; porta = stanza?.portaEst; break;
         }
 
-        // Controlla se la porta esiste e se è aperta
+        // PRIMO CONTROLLO: Verifica se le coordinate sono valide nella mappa
+        if(r < 0 || r >= Global.map.Length || c < 0 || c >= Global.map[r].Length || Global.map[r][c] == null)
+        {
+            Console.WriteLine("\nC'è un muro in quella direzione. (Premi un tasto)");
+            Console.ReadKey(true);
+            return;
+        }
+
+        // SECONDO CONTROLLO: Verifica se la porta esiste e se è aperta
         if (porta == null || !porta.PermettePassaggio())
         {
             if (porta == null)
@@ -98,18 +106,10 @@ class Giocatore
             return;
         }
 
-        if(r < 0 || r >= Global.map.Length || c < 0 || c >= Global.map[r].Length || Global.map[r][c] == null)
-        {
-            Console.WriteLine("\nC'è un muro in quella direzione. (Premi un tasto)");
-            Console.ReadKey(true);
-            return;
-        }
-        else
-        {
-            coordinate = new int[] { r, c };
-            stanza = Global.map[r][c];
-            contatorePassi++;
-        }
+        // Se tutti i controlli passano, esegui il movimento
+        coordinate = new int[] { r, c };
+        stanza = Global.map[r][c];
+        contatorePassi++;
     }
 
     public void MostraMappa()
