@@ -203,7 +203,7 @@ class Global
         ....................+-------/       \-------+
         .................../      SALA COMANDI       \
         ................../                           \
-        +-────────+─────────────┼───────────────┼──────────╱──┤
+        +-──���─────+─────────────┼───────────────┼──────────╱──┤
         |         |             |               |             |         |
         |CORRIDOIO| RIPOSTIGLIO |   CORRIDOIO   |  ARCHIVIO   |CORRIDOIO|
         |         |             |               |             |         |
@@ -216,7 +216,7 @@ class Global
         | S.MOTORI:  S.MOTORI   |   MAGAZZINO   |  S.MOTORI   : S.MOTORI|
         | OVEST 1 :   OVEST 2   |               |    EST 1    :  EST 2  |
         |         :             |               |             :         |
-        +-────────+─────────────┼───────╱───────┼─────────────+-────────+
+        +-────────+─────────────┼───────��───────┼─────────────+-────────+
         ........................|               |
         ........................|     PORTO     |
         ........................|               |
@@ -528,9 +528,9 @@ class Global
         |         :             |               |             :         |
         +-────────┼─────────────┼───────╱───────┼─────────────┤
         ........................|               |
-        ........................| >SEI QUI<     |
+        ........................|>SEI QUI<      |
         ........................|               |
-        ........................+────────╱──────+
+        ........................+───────╱───────+
         ................................|
         ..........................─────────────.
         ........................(               )
@@ -561,7 +561,7 @@ class Global
         ........................|               |
         ........................|     PORTO     |
         ........................|               |
-        ........................+────────╱──────+
+        ........................+───────╱───────+
         ................................|
         ..........................─────────────.
         ........................(  >SEI QUI<    )
@@ -621,18 +621,18 @@ class Global
         // ====================================================================
         // 3. CONFIGURAZIONE DELLE PORTE - SECONDO LO SCHEMA SPECIFICATO
         // ====================================================================
-        // Le porte collegano le stanze secondo il schema fornito
+        // Le porte collegano le stanze secondo lo schema fornito
         // Le porte sono SEMPRE APERTE per ora
         
-        // 1. NAVETTA <-> PORTO (Sud da Navetta, Nord da Porto)
+        // 1. NAVETTA <-> PORTO (Nord da Navetta, Sud da Porto)
         Porta portaNavettaPorto = new Porta("Porta Navetta-Porto", Porta.StatoPorta.Aperta);
-        navetta.portaSud = portaNavettaPorto;
-        porto.portaNord = portaNavettaPorto;
+        navetta.portaNord = portaNavettaPorto;
+        porto.portaSud = portaNavettaPorto;
 
-        // 2. PORTO <-> MAGAZZINO (Sud da Porto, Nord da Magazzino)
+        // 2. PORTO <-> MAGAZZINO (Nord da Porto, Sud da Magazzino)
         Porta portaPortoMagazzino = new Porta("Porta Porto-Magazzino", Porta.StatoPorta.Aperta);
-        porto.portaSud = portaPortoMagazzino;
-        magazzino.portaNord = portaPortoMagazzino;
+        porto.portaNord = portaPortoMagazzino;
+        magazzino.portaSud = portaPortoMagazzino;
 
         // 3. MAGAZZINO <-> SALA MOTORI OVEST 1 (Ovest da Magazzino, Est da MotoriOvest1)
         Porta portaMagazzinoMotoriO1 = new Porta("Porta Magazzino-MotoriOvest1", Porta.StatoPorta.Aperta);
@@ -716,9 +716,10 @@ class Global
         motoriOvest1.portaOvest = portaMotoriO1O2;
         motoriOvest2.portaEst = portaMotoriO1O2;
 
-        // 19. Magazzino <-> Motori Ovest 2 (Ovest già assegnato, questo è il Nord da MotoriOvest2)
-        // Nota: MotoriOvest2 ha già portaEst, quindi usa portaNord
-        motoriOvest2.portaNord = portaMagazzinoMotoriO1; // Connessione alternativa
+        // 19. Magazzino <-> Motori Ovest 2 (Nord da MotoriOvest2, Sud da Magazzino)
+        Porta portaMotoriO2Magazzino = new Porta("Porta MotoriOvest2-Magazzino", Porta.StatoPorta.Aperta);
+        motoriOvest2.portaNord = portaMotoriO2Magazzino;
+        magazzino.portaOvest = portaMotoriO2Magazzino;
 
         // 20. Motori Est 1 <-> Motori Est 2 (Est da MotoriEst1, Nord da MotoriEst2)
         Porta portaMotoriE1E2 = new Porta("Porta MotoriEst1-MotoriEst2", Porta.StatoPorta.Aperta);
